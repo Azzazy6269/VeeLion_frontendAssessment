@@ -2,8 +2,8 @@
 
 import { useTasks } from "@/hooks/useTasks";
 import type { Task } from "@/types/api";
-import { StatusFilter } from "@/components/tasks/StatusFilter";
-import { TaskList } from "@/components/tasks/TaskList";
+import { StatusFilter } from "@/components/features/tasks/StatusFilter";
+import { TaskList } from "@/components/features/tasks/TaskList";
 
 export function TaskDashboard() {
   const {
@@ -14,11 +14,11 @@ export function TaskDashboard() {
     updatingTaskId,
     setFilter,
     fetchTasks,
-    updateTaskStatus,
+    updateTask,
   } = useTasks();
 
   const handleToggle = (task: Task) => {
-    updateTaskStatus(task.id, !task.completed);
+    updateTask(task.id, !task.completed);
   };
 
   return (

@@ -46,3 +46,11 @@ I preferred using TanStack Query, as it eliminates manual state management boile
 **What is wrong:** in many files we compared between error.message and fallback message.
 **Why it matters:** it's redundant code that we have to write once and use in differen modules .
 **Suggested improvement:** implemented getErrorMessage helper function in lib directory and called it when it's needed.
+
+
+### 8. Enhance components folder structure
+**Category:** Code quality
+**What is wrong:** There's no folder for shared components between features or for layouts and tasks feature only has a seperate folder.
+**Why it matters:** After adding all the needed components It will be messy structure that you can't find your component easily .
+**Suggested improvement:** divided components folder into features, layouts, ui.
+
