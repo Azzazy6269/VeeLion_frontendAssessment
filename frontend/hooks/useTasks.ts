@@ -27,6 +27,7 @@ export function useTasks() {
   const [filter, setFilter] = useState<TaskFilter>("all");
 
   const [loading, setLoading] = useState<boolean>(true);
+  const [loadingSingleTask, setLoadingSingleTask] = useState<boolean>(true);
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [updatingTaskId, setUpdatingTaskId] = useState<string>("");
   const [deletingTaskId, setDeletingTaskId] = useState<string>("");
@@ -66,7 +67,7 @@ export function useTasks() {
 
   const getSingleTask = useCallback(async (taskId: string) => {
     try {
-      setLoading(true);
+      setLoadingSingleTask(true);
       setError("");
 
       const body = await apiClient.get<getTaskResponse>(`/api/tasks/${taskId}`);
@@ -75,7 +76,7 @@ export function useTasks() {
     } catch (error) {
       setError(getErrorMessage(error, "Could not load tasks right now."));
     } finally {
-      setLoading(false);
+      setLoadingSingleTask(false);
     }
   }, []);
 
