@@ -5,7 +5,8 @@ export const createTaskBodySchema = z
     title: z
       .string("Title is required")
       .trim()
-      .min(1, "Title cannot be empty"),
+      .min(3, "Title min length = 3")
+      .max(255, "Title max length = 255"),
     completed: z
       .boolean()
       .optional()
@@ -18,7 +19,8 @@ export const updateTaskBodySchema = z
     title: z
       .string()
       .trim()
-      .min(1, "Title cannot be empty if provided")
+      .min(3, "Title min length = 3")
+      .max(255, "Title max length = 255")
       .optional(),
     completed: z
       .boolean()

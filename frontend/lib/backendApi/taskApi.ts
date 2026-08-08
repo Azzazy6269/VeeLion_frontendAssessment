@@ -1,4 +1,4 @@
-import api from "./api";
+import api from "../api";
 import type {
     Task, 
     getTaskResponse, 
@@ -20,8 +20,8 @@ export async function getTaskByIdFromBackend(taskId: string): Promise<Task> {
   return response.data.data;
 }
 
-export async function createTaskInBackend(taskId: string, data: CreateTaskRequest): Promise<Task> {
-  const response = await api.patch<CreateTaskResponse>(`/tasks/${taskId}`, data);
+export async function createTaskInBackend(data: CreateTaskRequest): Promise<Task> {
+  const response = await api.patch<CreateTaskResponse>(`/tasks`, data);
   return response.data.data;
 }
 

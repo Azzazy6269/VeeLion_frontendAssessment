@@ -15,8 +15,8 @@ export type getTaskResponse = {
 };
 
 export type CreateTaskRequest = {
-  title: string; // required, trimmed, non-empty
-  completed?: boolean; // default false
+  title: string;
+  completed?: boolean;
 };
 
 export type CreateTaskResponse = {
@@ -24,7 +24,7 @@ export type CreateTaskResponse = {
 };
 
 export type PatchTaskRequest = {
-  title?: string; // if provided, must be string and long enough after trim
+  title?: string;
   completed?: boolean;
 };
 
@@ -34,12 +34,7 @@ export type PatchTaskResponse = {
 
 export type DeleteTaskResponse = void;
 
-export type ErrorResponse = {
-  error?: {
-    message?: string;
-  };
-};
-
+export type TaskFilter = "all" | "completed" | "pending";
 
 export type ActivityLog = {
   id: string;
@@ -48,4 +43,11 @@ export type ActivityLog = {
   when: string;
 };
 
-export type TaskFilter = "all" | "completed" | "pending";
+
+export type ErrorResponse = {
+  error?: {
+    message?: string;
+  };
+};
+
+

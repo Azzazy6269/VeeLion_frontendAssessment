@@ -17,3 +17,10 @@
 **What is wrong:** Requests payload must be validated before sending it to backend server
 **Why it matters:** Invalid or malformed payloads can lead to unhandled backend errors, data corruption, storing redundant spaces, or unexpected application crashes.
 **Suggested improvement:** used Zod library to validate requests payload
+
+
+### 4. Implemented ParseToJson to parse request payload to json
+**Category:** Code Quality
+**What is wrong:** In the begging of each route we had to write request.json and check it's sucess
+**Why it matters:** This leads to code redundancy and violates the DRY principle.
+**Suggested improvement:** Implemented a shared ParseToJson helper to parse and validate request payloads cleanly.

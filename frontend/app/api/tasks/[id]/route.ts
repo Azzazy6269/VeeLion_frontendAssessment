@@ -18,7 +18,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       );
     }
 
-    const task = await updateTaskInBackend(params.id, payload.completed);
+    const task = await updateTaskInBackend(params.id, payload);
     return NextResponse.json({ data: task }, { status: 200 });
   } catch (error) {
     return NextResponse.json(

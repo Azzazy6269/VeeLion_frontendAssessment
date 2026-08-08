@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import { getTasksFromBackend } from "@/lib/backendApi/taskApi";
+import { createTaskInBackend, getTasksFromBackend } from "@/lib/backendApi/taskApi";
+
+import { createTaskBodySchema } from "@/lib/validations/task";
+import { parseToJson } from "@/lib/parseToJson";
 
 export async function GET() {
   try {
