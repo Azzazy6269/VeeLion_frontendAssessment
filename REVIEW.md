@@ -63,8 +63,29 @@ I preferred using TanStack Query, as it eliminates manual state management boile
 **Suggested improvement:** For large-scale applications, global state management tools like Zustand, Redux Toolkit, or React Context should be used. However, for the current scope and complexity of this application, utilizing props remains the appropriate, lightweight, and performant choice.
 
 
-# 10. Radix UI and tailwind
-**Category:** Code quality
+### 10. Radix UI and tailwind
+**Category:** Code quality / UX Design
 **What is wrong:** current code depends only on native css.
-**Why it matters:** It's much harder for developers to design UI without css framework like tailwind and UI library like shadcn or others.
+**Why it matters:** It's much harder for developers to design UI without css framework like tailwind and UI library like shadcn or others. In current code we use inline style which enlarge DOM so we have to replace it with tailwind classes
 **Suggested improvement:** installed tailwind and Radix UI.
+
+
+### 11. Duplication of main tag
+**Category:** performance / React best practices
+**What is wrong:** main tag is used in RootLayout and in page.tsx.
+**Why it matters:** It breaks HTML5 Semantics rules and affects SEO 
+**Suggested improvement:** Used it only in RootLayout.
+
+
+### 12. Missing Memoization on Event Handlers (useCallback)
+**Category:** React Performance / Best Practices
+**What is wrong:** In TaskDashboard.tsx, the inline function handleToggle is recreated on every render of TaskDashboard, forcing all child TaskItem components inside TaskList to re-render unnecessarily.
+**Why it matters:** Causes unnecessary re-renders across the task list tree whenever parent state changes (e.g., when changing status filters).
+**Suggested improvement:** Wrapped task action handlers in useCallback to preserve reference identity across renders.
+
+
+### 13. Moved navigation to navbar
+**Category:** UX Design
+**What is wrong:** There's no direct button to navigate from tasks to activity, reports and vice versa.
+**Why it matters:** User has every time to press `back` and return to home page to navigate to another page.
+**Suggested improvement:** Introduced a global persistent Navigation Bar (Navbar / Sidebar) with active page indicators, allowing single-click transitions between Tasks, Activity Feed, and Reports.

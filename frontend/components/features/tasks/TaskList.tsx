@@ -4,23 +4,32 @@ import { TaskItem } from "@/components/features/tasks/TaskItem";
 type TaskListProps = {
   tasks: Task[];
   updatingTaskId: string;
+  deletingTaskId?: string;
   onToggle: (task: Task) => void;
+  onDelete: (taskId: string) => void;
 };
 
-export function TaskList({ tasks, updatingTaskId, onToggle }: TaskListProps) {
+export function TaskList({ tasks, updatingTaskId, deletingTaskId, onToggle, onDelete }: TaskListProps) {
   if (tasks.length === 0) {
     return (
-      <section className="card" style={{ padding: "1rem" }}>
-        <p style={{ margin: 0, color: "var(--muted)" }}>No tasks match this filter.</p>
+      <section className="bg-white border border-slate-100 rounded-2xl p-8 text-center">
+        <p className="text-slate-400 font-medium text-sm">No tasks match this filter.</p>
       </section>
     );
   }
 
   return (
     <section aria-label="Task list">
-      <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: "0.7rem" }}>
+      <ul className="list-none m-0 p-0 grid gap-3">
         {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} busy={updatingTaskId === task.id} onToggle={onToggle} />
+          <TaskItem
+            key={task.id}
+            task={task}
+            busy={updatingTaskId === task.id}
+            deleting={deletingTaskId === task.id}
+            onToggle={onToggle}
+            onDelete={onDelete}
+          />
         ))}
       </ul>
     </section>
