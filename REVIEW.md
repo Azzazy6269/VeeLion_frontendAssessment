@@ -38,4 +38,11 @@
 **What is wrong:** Handlers and filtered data inside custom hooks were re-created and re-computed on every single render cycle without memoization wrappers.
 **Why it matters:** consume resources which makes application slower( bad for UX ).
 **Suggested improvement:** used useCallback and useMemo to cache functions and it's result. ( avoided Stale Closure ).
-I preferred using TanStack Query, as it eliminates manual state management boilerplate (such as loading and error flags) while seamlessly handling automatic cache invalidation upon mutations. 
+I preferred using TanStack Query, as it eliminates manual state management boilerplate (such as loading and error flags) while seamlessly handling automatic cache invalidation upon mutations.
+
+
+### 7. implement getErrorMessage as a global helper function
+**Category:** Code quality
+**What is wrong:** in many files we compared between error.message and fallback message.
+**Why it matters:** it's redundant code that we have to write once and use in differen modules .
+**Suggested improvement:** implemented getErrorMessage helper function in lib directory and called it when it's needed.

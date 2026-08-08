@@ -3,13 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import apiClient from "@/lib/apiClient";
 import type { TasksSummary } from "@/types/api";
-
-function getErrorMessage(error: unknown, fallback: string): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-  return fallback;
-}
+import getErrorMessage from "@/lib/getErrorMessage_helper"
 
 export function useReports() {
   const [summary, setSummary] = useState<TasksSummary | null>(null);

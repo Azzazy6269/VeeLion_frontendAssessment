@@ -12,14 +12,7 @@ import type {
   CreateTaskRequest
  } from "@/types/api";
 import apiClient from "@/lib/apiClient";
-
-function getErrorMessage(error: unknown, fallback: string): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-
-  return fallback;
-}
+import getErrorMessage from "@/lib/getErrorMessage_helper"
 
 export function useTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
