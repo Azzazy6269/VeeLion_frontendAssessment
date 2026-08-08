@@ -1,9 +1,11 @@
+import { Loader2 } from "lucide-react";
 import React from "react";
 
 export type Column<T> = {
   header: string;
   accessorKey?: keyof T;
   cell?: (row: T) => React.ReactNode;
+  className?: string;
 };
 
 type DataTableProps<T> = {
@@ -22,7 +24,7 @@ export function DataTable<T extends { id: string | number }>({
   return (
     <div className="w-full bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
+        <table className="w-full text-left border-collapse table-fixed">
           <thead>
             <tr className="bg-slate-50/80 border-b border-slate-100 text-xs uppercase tracking-wider text-slate-400 font-semibold">
               {columns.map((col, idx) => (
@@ -35,11 +37,13 @@ export function DataTable<T extends { id: string | number }>({
 
           <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
             {loading ? (
-              <tr>
-                <td colSpan={columns.length} className="text-center py-12 text-slate-400">
-                  Loading data...
-                </td>
-              </tr>
+                    <tr>
+                      <td colSpan={columns.length} className="py-12 text-center">
+                        <div className="flex justify-center items-center text-purple-600">
+                          <Loader2 className="w-8 h-8 animate-spin" />
+                        </div>
+                      </td>
+                    </tr>
             ) : data.length === 0 ? (
               <tr>
                 <td colSpan={columns.length} className="text-center py-12 text-slate-400">

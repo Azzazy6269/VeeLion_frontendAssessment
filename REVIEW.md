@@ -86,6 +86,29 @@ I preferred using TanStack Query, as it eliminates manual state management boile
 
 ### 13. Moved navigation to navbar
 **Category:** UX Design
-**What is wrong:** There's no direct button to navigate from tasks to activity, reports and vice versa.
+**What is wrong:** There's no direct button to navigate bteween tasks to activity and reports.
 **Why it matters:** User has every time to press `back` and return to home page to navigate to another page.
 **Suggested improvement:** Introduced a global persistent Navigation Bar (Navbar / Sidebar) with active page indicators, allowing single-click transitions between Tasks, Activity Feed, and Reports.
+
+
+### 14. Duplicated functions for same utility in activity/page.tsx
+**Category:** Code Quality
+**What is wrong:** formatTimeA and formatTimeB have same utility, applyFilterA and applyFilterB have same utility.
+**Why it matters:** Violates the DRY (Don't Repeat Yourself) principle and inflates bundle size with redundant logic and there's built in functions have there functionality.
+**Suggested improvement:** Used .filter() and Date.prototype.toLocaleString() instead of them.
+
+
+### 15. Chained useEffects in activity/page.tsx
+**Category:** Code Quality / Performance
+**What is wrong:** the component has 4 useEffect hooks calls themselves forever with no need for rendering.
+**Why it matters:** Storing derived state in React useState leads to multiple render passes and maintenance complexity.
+**Suggested improvement:** Used only one useEffect to fetch activities.
+
+
+### 16. Timer (setInterval) Inducing Memory Leaks & Wasteful Re-renders in activity/page.tsx
+**Category:** React Performance
+**What is wrong:** A setInterval was updating tick state every 1400ms. This tick state was included in multiple useEffect dependency arrays, forcing the entire activity list to re-filter and re-clone every 1.4 seconds.
+**Why it matters:** Consume resources, Causes severe CPU overhead, battery drain, and unnecessary DOM re-renders.
+**Suggested improvement:** Removed the timer entirely.
+
+

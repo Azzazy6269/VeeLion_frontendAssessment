@@ -6,7 +6,7 @@ import type { Task } from "@/types/api";
 import { StatusFilter } from "@/components/features/tasks/StatusFilter";
 import { TaskList } from "@/components/features/tasks/TaskList";
 import { DashboardBanner } from "@/components/ui/DashboardBanner";
-import { TaskModal } from "@/components/ui/TaskModal";
+import { TaskModal } from "@/components/features/tasks/TaskModal";
 import { RefreshCw, Loader2 } from "lucide-react";
 
 export function TaskDashboard() {
