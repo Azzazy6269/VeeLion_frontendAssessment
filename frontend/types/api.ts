@@ -51,6 +51,14 @@ export type ActivityLog = {
   when: string;
 };
 
+export type GetActivityResponse = ActivityLog[];
+
+export type CreateActivityRequest = {
+  action?: string;
+  info?: string;
+};
+
+export type CreateActivityResponse = ActivityLog;
 
 export type ErrorResponse = {
   error?: {
