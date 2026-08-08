@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getTasksFromBackend } from "@/lib/backendApi";
+import { getTasksFromBackend } from "@/lib/backendApi/taskApi";
 
 export async function GET() {
   try {

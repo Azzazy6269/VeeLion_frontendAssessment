@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { updateTaskInBackend } from "@/lib/backendApi";
+import { updateTaskInBackend } from "@/lib/backendApi/taskApi";
 
 type RouteParams = {
   params: {
