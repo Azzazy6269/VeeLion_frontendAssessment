@@ -112,3 +112,13 @@ I preferred using TanStack Query, as it eliminates manual state management boile
 **Suggested improvement:** Removed the timer entirely.
 
 
+Finally, I put my maximum effort into elevating this codebase to production-grade standards while strictly respecting the project's constraints:
+* Don't rewrite everything from scratch
+* Maintain existing functionality
+To honor these guidelines while avoiding over-engineering, I made deliberate architectural choices:
+- I used useMemo and useCallback for caching as they were caching methods before I start modifying the code, Although I prefer to use tanStack query to handle automatic cache invalidation, background refetching, and boilerplate reduction.
+- I used Props to pass data between components 
+
+Future plan ( features i would add if i had more time )
+* I would add light/dark mode using react context
+* I would Integrate i18next to support multi-language localization (Arabic RTL & English LTR).
