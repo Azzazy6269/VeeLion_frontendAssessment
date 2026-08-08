@@ -1,7 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { ErrorResponse, Task, TaskFilter, getTaskResponse, getTasksResponse } from "@/types/api";
+import type { 
+  DeleteTaskResponse, 
+  ErrorResponse, 
+  Task, 
+  TaskFilter, 
+  getTaskResponse, 
+  getTasksResponse,
+  PatchTaskRequest,
+  CreateTaskRequest
+ } from "@/types/api";
+import apiClient from "@/lib/apiClient";
 
 function getErrorMessage(error: unknown, fallback: string): string {
   if (error instanceof Error) {
@@ -11,44 +21,25 @@ function getErrorMessage(error: unknown, fallback: string): string {
   return fallback;
 }
 
-async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(url, {
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...(init?.headers || {}),
-    },
-  });
-
-  if (!response.ok) {
-    try {
-      const body = (await response.json()) as ErrorResponse;
-      throw new Error(body.error?.message || `Request failed with ${response.status}`);
-    } catch (error) {
-      throw new Error(getErrorMessage(error, `Request failed with ${response.status}`));
-    }
-  }
-
-  return (await response.json()) as T;
-}
-
 export function useTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [singleTask,setSingleTask] = useState<Task | null>(null)
   const [filter, setFilter] = useState<TaskFilter>("all");
+
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+  const [isCreating, setIsCreating] = useState<boolean>(false);
   const [updatingTaskId, setUpdatingTaskId] = useState<string>("");
+  const [deletingTaskId, setDeletingTaskId] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const fetchTasks = useCallback(async () => {
     try {
       setLoading(true);
       setError("");
 
-      const body = await requestJson<getTasksResponse>("/api/tasks", {
-        method: "GET",
-      });
+      const body = await apiClient.get<getTasksResponse>("/api/tasks");
 
-      setTasks(body.data);
+      setTasks(body.data.data);
     } catch (error) {
       setError(getErrorMessage(error, "Could not load tasks right now."));
     } finally {
@@ -56,23 +47,65 @@ export function useTasks() {
     }
   }, []);
 
-  const updateTaskStatus = useCallback(async (taskId: string, completed: boolean) => {
+  const updateTask = useCallback(async (taskId: string, task:PatchTaskRequest) => {
     try {
       setUpdatingTaskId(taskId);
       setError("");
 
-      const body = await requestJson<getTaskResponse>(`/api/tasks/${taskId}`, {
-        method: "PATCH",
-        body: JSON.stringify({ completed }),
-      });
+      const body = await apiClient.patch<getTaskResponse>(`/api/tasks/${taskId}`, task);
 
       setTasks((previous) =>
-        previous.map((task) => (task.id === taskId ? body.data : task))
+        previous.map((task) => (task.id === taskId ? body.data.data : task))
       );
     } catch (error) {
       setError(getErrorMessage(error, "Could not update task status."));
     } finally {
       setUpdatingTaskId("");
+    }
+  }, []);
+
+  const getSingleTask = useCallback(async (taskId: string) => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const body = await apiClient.get<getTaskResponse>(`/api/tasks/${taskId}`);
+
+      setSingleTask(body.data.data);
+    } catch (error) {
+      setError(getErrorMessage(error, "Could not load tasks right now."));
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const deleteTask = useCallback(async (taskId: string) => {
+    try {
+      setDeletingTaskId(taskId);
+      setError("");
+      const body = await apiClient.delete<DeleteTaskResponse>(`/api/tasks/${taskId}`);
+      setTasks((previous) => previous.filter((task) => task.id !== taskId));
+      setSingleTask((prev) => (prev?.id === taskId ? null : prev));
+    } catch (error) {
+      setError(getErrorMessage(error, "Could not load tasks right now."));
+    } finally {
+      setDeletingTaskId("");
+    }
+  }, []);
+
+  const createTask = useCallback(async (taskData: CreateTaskRequest) => {
+    try {
+      setIsCreating(true);
+      setError("");
+      const response = await apiClient.post<getTaskResponse>("/api/tasks", taskData);
+      setTasks((prev) => [response.data.data, ...prev]);
+      return response.data.data;
+    } catch (error) {
+      const message = getErrorMessage(error, "Could not create task.");
+      setError(message);
+      throw error;
+    } finally {
+      setIsCreating(false);
     }
   }, []);
 
@@ -94,13 +127,19 @@ export function useTasks() {
 
   return {
     tasks,
+    singleTask,
     filteredTasks,
     filter,
     loading,
-    error,
+    isCreating,
     updatingTaskId,
+    deletingTaskId,
+    error,
     setFilter,
     fetchTasks,
-    updateTaskStatus,
+    getSingleTask,
+    createTask,
+    updateTask,
+    deleteTask,
   };
 }

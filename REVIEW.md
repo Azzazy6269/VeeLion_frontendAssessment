@@ -31,3 +31,11 @@
 **What is wrong:** Custom React hooks were directly invoking raw `fetch` calls and inline `requestJson` helper functions with duplicated header settings and error parsing logic.
 **Why it matters:** redundant code and bad practice
 **Suggested improvement:** switch to axios instance to handle requests and responses via interceptors
+
+
+### 6. useCallback and useMemo for caching( Although I prefer tanstack query )
+**Category:** Performance / React best practice
+**What is wrong:** Handlers and filtered data inside custom hooks were re-created and re-computed on every single render cycle without memoization wrappers.
+**Why it matters:** consume resources which makes application slower( bad for UX ).
+**Suggested improvement:** used useCallback and useMemo to cache functions and it's result. ( avoided Stale Closure ).
+I preferred using TanStack Query, as it eliminates manual state management boilerplate (such as loading and error flags) while seamlessly handling automatic cache invalidation upon mutations. 
