@@ -23,4 +23,4 @@
 **Category:** Code Quality
 **What is wrong:** In the begging of each route we had to write request.json and check it's sucess
 **Why it matters:** This leads to code redundancy and violates the DRY principle.
-**Suggested improvement:** Implemented a shared ParseToJson helper to parse and validate request payloads cleanly.
+**Suggested improvement:** Implemented a shared ParseToJson helper to parse and validate request body cleanly.

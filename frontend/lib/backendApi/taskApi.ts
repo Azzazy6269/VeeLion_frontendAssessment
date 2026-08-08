@@ -21,7 +21,7 @@ export async function getTaskByIdFromBackend(taskId: string): Promise<Task> {
 }
 
 export async function createTaskInBackend(data: CreateTaskRequest): Promise<Task> {
-  const response = await api.patch<CreateTaskResponse>(`/tasks`, data);
+  const response = await api.post<CreateTaskResponse>(`/tasks`, data);
   return response.data.data;
 }
 

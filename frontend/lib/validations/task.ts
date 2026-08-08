@@ -8,7 +8,7 @@ export const createTaskBodySchema = z
       .min(3, "Title min length = 3")
       .max(255, "Title max length = 255"),
     completed: z
-      .boolean()
+      .boolean("Completed must be boolean")
       .optional()
       .default(false),
   })
@@ -17,13 +17,13 @@ export const createTaskBodySchema = z
 export const updateTaskBodySchema = z
   .object({
     title: z
-      .string()
+      .string("Title must be string")
       .trim()
       .min(3, "Title min length = 3")
       .max(255, "Title max length = 255")
       .optional(),
     completed: z
-      .boolean()
+      .boolean("Completed must be boolean")
       .optional(),
   })
   .strict()
