@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import apiClient from "@/lib/apiClient";
 import type { ActivityLog, CreateActivityRequest } from "@/types/api";
 
