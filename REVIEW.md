@@ -46,3 +46,79 @@ I preferred using TanStack Query, as it eliminates manual state management boile
 **What is wrong:** in many files we compared between error.message and fallback message.
 **Why it matters:** it's redundant code that we have to write once and use in differen modules .
 **Suggested improvement:** implemented getErrorMessage helper function in lib directory and called it when it's needed.
+
+
+### 8. Enhance components folder archeticture
+**Category:** Code quality
+**What is wrong:** There's no folder for shared components between features or for layouts and tasks feature only has a seperate folder.
+**Why it matters:** After adding all the needed components It will be messy structure that you can't find your component easily .
+**Suggested improvement:** divided components folder into layouts, ui and features( Feature-Based Architecture).
+
+
+
+### 9. Using props can lead to props drilling
+**Category:** performance / React best practices
+**What is wrong:** Using props can lead to props drilling.
+**Why it matters:** As the application scales, deeply nested prop passing creates tight coupling between components, reduces code readability, and makes refactoring or maintaining the component tree significantly harder.
+**Suggested improvement:** For large-scale applications, global state management tools like Zustand, Redux Toolkit, or React Context should be used. However, for the current scope and complexity of this application, utilizing props remains the appropriate, lightweight, and performant choice.
+
+
+### 10. Radix UI and tailwind
+**Category:** Code quality / UX Design
+**What is wrong:** current code depends only on native css.
+**Why it matters:** It's much harder for developers to design UI without css framework like tailwind and UI library like shadcn or others. In current code we use inline style which enlarge DOM so we have to replace it with tailwind classes
+**Suggested improvement:** installed tailwind and Radix UI.
+
+
+### 11. Duplication of main tag
+**Category:** performance / React best practices
+**What is wrong:** main tag is used in RootLayout and in page.tsx.
+**Why it matters:** It breaks HTML5 Semantics rules and affects SEO 
+**Suggested improvement:** Used it only in RootLayout.
+
+
+### 12. Missing Memoization on Event Handlers (useCallback)
+**Category:** React Performance / Best Practices
+**What is wrong:** In TaskDashboard.tsx, the inline function handleToggle is recreated on every render of TaskDashboard, forcing all child TaskItem components inside TaskList to re-render unnecessarily.
+**Why it matters:** Causes unnecessary re-renders across the task list tree whenever parent state changes (e.g., when changing status filters).
+**Suggested improvement:** Wrapped task action handlers in useCallback to preserve reference identity across renders.
+
+
+### 13. Moved navigation to navbar
+**Category:** UX Design
+**What is wrong:** There's no direct button to navigate bteween tasks to activity and reports.
+**Why it matters:** User has every time to press `back` and return to home page to navigate to another page.
+**Suggested improvement:** Introduced a global persistent Navigation Bar (Navbar / Sidebar) with active page indicators, allowing single-click transitions between Tasks, Activity Feed, and Reports.
+
+
+### 14. Duplicated functions for same utility in activity/page.tsx
+**Category:** Code Quality
+**What is wrong:** formatTimeA and formatTimeB have same utility, applyFilterA and applyFilterB have same utility.
+**Why it matters:** Violates the DRY (Don't Repeat Yourself) principle and inflates bundle size with redundant logic and there's built in functions have there functionality.
+**Suggested improvement:** Used .filter() and Date.prototype.toLocaleString() instead of them.
+
+
+### 15. Chained useEffects in activity/page.tsx
+**Category:** Code Quality / Performance
+**What is wrong:** the component has 4 useEffect hooks calls themselves forever with no need for rendering.
+**Why it matters:** Storing derived state in React useState leads to multiple render passes and maintenance complexity.
+**Suggested improvement:** Used only one useEffect to fetch activities.
+
+
+### 16. Timer (setInterval) Inducing Memory Leaks & Wasteful Re-renders in activity/page.tsx
+**Category:** React Performance
+**What is wrong:** A setInterval was updating tick state every 1400ms. This tick state was included in multiple useEffect dependency arrays, forcing the entire activity list to re-filter and re-clone every 1.4 seconds.
+**Why it matters:** Consume resources, Causes severe CPU overhead, battery drain, and unnecessary DOM re-renders.
+**Suggested improvement:** Removed the timer entirely.
+
+
+Finally, I put my maximum effort into elevating this codebase to production-grade standards while strictly respecting the project's constraints:
+* Don't rewrite everything from scratch
+* Maintain existing functionality
+To honor these guidelines while avoiding over-engineering, I made deliberate architectural choices:
+- I used useMemo and useCallback for caching as they were caching methods before I start modifying the code, Although I prefer to use tanStack query to handle automatic cache invalidation, background refetching, and boilerplate reduction.
+- I used Props to pass data between components 
+
+Future plan ( features i would add if i had more time )
+* I would add light/dark mode using react context
+* I would Integrate i18next to support multi-language localization (Arabic RTL & English LTR).

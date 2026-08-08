@@ -13,8 +13,7 @@ type StatusFilterProps = {
 
 export function StatusFilter({ value, onChange }: StatusFilterProps) {
   return (
-    <section aria-label="Filter tasks by status" className="card" style={{ padding: "0.8rem" }}>
-      <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+    <div aria-label="Filter tasks by status" className="flex items-center gap-2 bg-slate-100/80 p-1.5 rounded-xl w-fit">
         {FILTERS.map((filter) => {
           const active = filter.value === value;
 
@@ -22,7 +21,11 @@ export function StatusFilter({ value, onChange }: StatusFilterProps) {
             <button
               key={filter.value}
               type="button"
-              className={active ? "button primary" : "button"}
+              className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 ${
+              active
+                ? "bg-[#8B5CF6] text-white shadow-md shadow-purple-500/20"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/50"
+            }`}
               onClick={() => onChange(filter.value)}
               aria-pressed={active}
             >
@@ -31,6 +34,5 @@ export function StatusFilter({ value, onChange }: StatusFilterProps) {
           );
         })}
       </div>
-    </section>
   );
 }
