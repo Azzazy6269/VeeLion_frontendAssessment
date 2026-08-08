@@ -16,7 +16,7 @@ export async function getTasksFromBackend(): Promise<Task[]> {
 }
 
 export async function getTaskByIdFromBackend(taskId: string): Promise<Task> {
-  const response = await api.patch<getTaskResponse>(`/tasks/${taskId}`);
+  const response = await api.get<getTaskResponse>(`/tasks/${taskId}`);
   return response.data.data;
 }
 
