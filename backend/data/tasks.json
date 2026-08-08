@@ -2,9 +2,9 @@
   {
     "id": "aeccf602-2809-4802-985b-70ff86942377",
     "title": "Test task",
-    "completed": false,
+    "completed": true,
     "createdAt": "2026-04-08T09:39:57.432Z",
-    "updatedAt": "2026-04-08T11:37:45.932Z"
+    "updatedAt": "2026-08-08T04:58:58.163Z"
   },
   {
     "id": "9a749a2d-ec52-415e-b68d-3c16a6ed024d",

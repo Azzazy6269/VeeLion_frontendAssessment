@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { ErrorResponse, Task, TaskFilter, TaskResponse, TasksResponse } from "@/types/api";
+import type { ErrorResponse, Task, TaskFilter, getTaskResponse, getTasksResponse } from "@/types/api";
 
 function getErrorMessage(error: unknown, fallback: string): string {
   if (error instanceof Error) {
@@ -44,7 +44,7 @@ export function useTasks() {
       setLoading(true);
       setError("");
 
-      const body = await requestJson<TasksResponse>("/api/tasks", {
+      const body = await requestJson<getTasksResponse>("/api/tasks", {
         method: "GET",
       });
 
@@ -61,7 +61,7 @@ export function useTasks() {
       setUpdatingTaskId(taskId);
       setError("");
 
-      const body = await requestJson<TaskResponse>(`/api/tasks/${taskId}`, {
+      const body = await requestJson<getTaskResponse>(`/api/tasks/${taskId}`, {
         method: "PATCH",
         body: JSON.stringify({ completed }),
       });

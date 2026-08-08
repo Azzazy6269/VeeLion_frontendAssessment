@@ -1,3 +1,7 @@
+////////////////////////////
+// TASKS TYPES /////////////
+////////////////////////////
+
 export type Task = {
   id: string;
   title: string;
@@ -35,6 +39,10 @@ export type PatchTaskResponse = {
 export type DeleteTaskResponse = void;
 
 export type TaskFilter = "all" | "completed" | "pending";
+
+////////////////////////////
+// ACTIVITY TYPES //////////
+////////////////////////////
 
 export type ActivityLog = {
   id: string;

@@ -8,7 +8,7 @@
 ### 2. Used axios to unify backend APIs behaviour 
 **Category:** Maintainability / Code Quality
 **What is wrong:** you have to add headers each time you call an api and use helper function to parse errors which Increases boilerplate code
-**Why it matters:** redundant code and bad practice
+**Why it matters:** redundant code and bad practice.
 **Suggested improvement:** switch to axios instance to handle requests and responses via interceptors
 
 
@@ -24,3 +24,10 @@
 **What is wrong:** In the begging of each route we had to write request.json and check it's sucess
 **Why it matters:** This leads to code redundancy and violates the DRY principle.
 **Suggested improvement:** Implemented a shared ParseToJson helper to parse and validate request body cleanly.
+
+
+### 5. Lack of Unified Client-Side HTTP Instance (`apiClient`)
+**Category:** Maintainability / Code Quality
+**What is wrong:** Custom React hooks were directly invoking raw `fetch` calls and inline `requestJson` helper functions with duplicated header settings and error parsing logic.
+**Why it matters:** redundant code and bad practice
+**Suggested improvement:** switch to axios instance to handle requests and responses via interceptors
