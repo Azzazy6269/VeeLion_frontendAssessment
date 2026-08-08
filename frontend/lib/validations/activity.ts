@@ -11,7 +11,7 @@ export const createActivityBodySchema = z
     info: z
       .string("Info must be a string")
       .trim()
-      .min(3, "Action min length is 3")
+      .min(3, "Info min length is 3")
       .max(1000, "Info max length is 1000")
       .optional(),
   })
