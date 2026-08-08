@@ -48,9 +48,23 @@ I preferred using TanStack Query, as it eliminates manual state management boile
 **Suggested improvement:** implemented getErrorMessage helper function in lib directory and called it when it's needed.
 
 
-### 8. Enhance components folder structure
+### 8. Enhance components folder archeticture
 **Category:** Code quality
 **What is wrong:** There's no folder for shared components between features or for layouts and tasks feature only has a seperate folder.
 **Why it matters:** After adding all the needed components It will be messy structure that you can't find your component easily .
-**Suggested improvement:** divided components folder into features, layouts, ui.
+**Suggested improvement:** divided components folder into layouts, ui and features( Feature-Based Architecture).
 
+
+
+### 9. Using props can lead to props drilling
+**Category:** performance / React best practices
+**What is wrong:** Using props can lead to props drilling.
+**Why it matters:** As the application scales, deeply nested prop passing creates tight coupling between components, reduces code readability, and makes refactoring or maintaining the component tree significantly harder.
+**Suggested improvement:** For large-scale applications, global state management tools like Zustand, Redux Toolkit, or React Context should be used. However, for the current scope and complexity of this application, utilizing props remains the appropriate, lightweight, and performant choice.
+
+
+# 10. Radix UI and tailwind
+**Category:** Code quality
+**What is wrong:** current code depends only on native css.
+**Why it matters:** It's much harder for developers to design UI without css framework like tailwind and UI library like shadcn or others.
+**Suggested improvement:** installed tailwind and Radix UI.
