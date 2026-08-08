@@ -60,10 +60,29 @@ export type CreateActivityRequest = {
 
 export type CreateActivityResponse = ActivityLog;
 
+////////////////////////////
+// REPORTS TYPES ///////////
+////////////////////////////
+
+export type TasksSummary = {
+  total: number;
+  byStatus: {
+    todo: number;
+    "in-progress": number;
+    done: number;
+  };
+  recentActivityCount: number;
+};
+
+export type GetTasksSummaryResponse = TasksSummary;
+
+
+////////////////////////////
+// GLOBAL TYPES ////////////
+////////////////////////////
 export type ErrorResponse = {
   error?: {
     message?: string;
   };
 };
-
 

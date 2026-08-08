@@ -1,15 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import apiClient from "@/lib/apiClient";
 import type { ActivityLog, CreateActivityRequest } from "@/types/api";
+import getErrorMessage from "@/lib/getErrorMessage_helper"
 
-function getErrorMessage(error: unknown, fallback: string): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-  return fallback;
-}
 
 export function useActivity() {
   const [activities, setActivities] = useState<ActivityLog[]>([]);
