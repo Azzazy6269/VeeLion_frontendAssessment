@@ -14,13 +14,6 @@
     "updatedAt": "2026-08-08T15:12:27.200Z"
   },
   {
-    "id": "82f6f3ca-9b80-4f13-85dd-3333fe8771d4",
-    "title": "testTask",
-    "completed": false,
-    "createdAt": "2026-08-08T03:59:38.399Z",
-    "updatedAt": "2026-08-08T03:59:38.399Z"
-  },
-  {
     "id": "175db6a4-3c89-426b-987d-0e2d9291c308",
     "title": "test after shadcn",
     "completed": false,

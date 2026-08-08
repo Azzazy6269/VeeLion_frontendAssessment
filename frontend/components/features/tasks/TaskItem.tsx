@@ -1,5 +1,7 @@
+import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
 import type { Task } from "@/types/api";
 import { CheckCircle2, Clock, Trash2, Loader2 } from "lucide-react";
+import { useState } from "react";
 
 type TaskItemProps = {
   task: Task;
@@ -10,6 +12,12 @@ type TaskItemProps = {
 };
 
 export function TaskItem({ task, busy,deleting, onToggle, onDelete }: TaskItemProps) {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleConfirmDelete = async () => {
+    await onDelete(task.id);
+    setShowDeleteModal(false);
+  };
   return (
     <li className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div className="space-y-1.5">
@@ -53,12 +61,20 @@ export function TaskItem({ task, busy,deleting, onToggle, onDelete }: TaskItemPr
         <button
           type="button"
           className="p-2 text-xs font-semibold rounded-xl text-rose-500 hover:bg-rose-50 transition-colors"
-          onClick={() => onDelete(task.id)}
+          onClick={() => setShowDeleteModal(true)}
           disabled={deleting}
           aria-label={`Delete task ${task.title}`}
         >
           {deleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
         </button>
+        <DeleteConfirmationModal
+          isOpen={showDeleteModal}
+          onClose={() => setShowDeleteModal(false)}
+          onConfirm={handleConfirmDelete}
+          title="Delete Task"
+          description={`Are you sure you want to delete "${task.title}"? This action cannot be undone.`}
+          isLoading={deleting}
+        />
       </div>
     </li>
   );
